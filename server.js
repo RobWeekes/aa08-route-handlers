@@ -35,6 +35,68 @@ const server = http.createServer((req, res) => {
 
     // define route handlers here
 
+    if(req.method === 'GET' && req.url === '/') {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/plain');
+        res.body = 'Dog Club';
+        res.write(res.body);
+        return res.end();
+    }
+
+    if(req.method === 'GET' && req.url === '/dogs') {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/plain');
+        res.body = 'Dogs index';
+        res.write(res.body);
+        return res.end();
+    }
+
+    // GET /dogs/new
+    if(req.method === 'GET' && req.url === '/dogs/new') {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/plain');
+        res.body = 'Dog create form page';
+        res.write(res.body);
+        return res.end();
+    }
+
+    // POST /dogs
+    if(req.method === 'POST' && req.url === '/dogs') {
+        res.statusCode = 302;   // redirect
+        // res.setHeader('Content-Type', 'text/plain');
+        res.body = 'Dog create form page';
+        res.write(res.body);
+        return res.end();
+    }
+
+    // GET /dogs/:dogId
+    if(req.method === 'GET' && req.url === '/dogs/:dogId') {
+        // check if the URL path begins with /dogs
+        if(req.url.startsWith('/dogs')) {
+            let str = req.url.split('/');
+            console.log(str);
+            if(str.length === 3) dogId = str[2];
+            console.log(dogId);
+        }
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'text/plain');
+        res.body = `Dog details for dogId: ${dogId}`; // ({dogId} replaced with :dogId route parameter)'
+        res.write(res.body);
+        return res.end();
+    }
+
+    // POST /dogs/:dogId
+    if(req.method === 'POST' && req.url === '/dogs/:dogId') {
+        res.statusCode = 302;   // redirect
+        // res.setHeader('Content-Type', 'text/plain');
+        res.body = 'Dog create form page';
+        res.write(res.body);
+        return res.end();
+    }
+
+    // GET /dogs/:dogId/edit
+
+
     // Do not edit below this line
     // Return a 404 response when there is no matching route handler
     res.statusCode = 404;
